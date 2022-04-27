@@ -1,19 +1,18 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
-using System.IO;
 using System.Linq;
-using Newtonsoft.Json;
 
 namespace TestNinja.Mocking
 {
     public class VideoService
     {
-        private IFileReader _fileReader;
+        private readonly IFileReader _fileReader;
 
-        public VideoService(IFileReader fileReader = null)
+        public VideoService(IFileReader fileReader)
         {
-            _fileReader = fileReader ?? new FileReader();
+            _fileReader = fileReader;
         }
 
         public string ReadVideoTitle()
@@ -28,14 +27,14 @@ namespace TestNinja.Mocking
         public string GetUnprocessedVideosAsCsv()
         {
             var videoIds = new List<int>();
-            
+
             using (var context = new VideoContext())
             {
-                var videos = 
+                var videos =
                     (from video in context.Videos
-                    where !video.IsProcessed
-                    select video).ToList();
-                
+                     where !video.IsProcessed
+                     select video).ToList();
+
                 foreach (var v in videos)
                     videoIds.Add(v.Id);
 

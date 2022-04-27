@@ -1,8 +1,8 @@
-﻿using System;
-using NUnit.Framework;
+﻿using NUnit.Framework;
+using System;
 using TestNinja.Fundamentals;
 
-namespace TestNinja.UnitTests
+namespace TestNinja.UnitTests.Fundamentals
 {
     [TestFixture]
     public class ErrorLoggerTests
@@ -19,7 +19,7 @@ namespace TestNinja.UnitTests
         public void Log_WhenCalled_SetTheLastErrorProperty()
         {
             _logger.Log("a");
-            
+
             Assert.That(_logger.LastError, Is.EqualTo("a"));
         }
 
@@ -38,9 +38,9 @@ namespace TestNinja.UnitTests
         {
             var id = Guid.Empty;
             _logger.ErrorLogged += (_, args) => { id = args; };
-            
+
             _logger.Log("a");
-            
+
             Assert.That(id, Is.Not.EqualTo(Guid.Empty));
         }
     }

@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace TestNinja.Mocking
 {
@@ -10,8 +6,9 @@ namespace TestNinja.Mocking
     {
         public static void Main()
         {
-            var service = new VideoService();
+            var service = new VideoService(new FileReader());
             var title = service.ReadVideoTitle();
+            Console.WriteLine(title);
         }
     }
 }
